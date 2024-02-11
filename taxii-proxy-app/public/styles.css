@@ -36,6 +36,7 @@ footer p {
     padding: 16px;
     margin: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .bundle-list-item div {
@@ -49,25 +50,40 @@ footer p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    margin: 40px;
+    padding: 20px;
 }
 
-.upload-form input{
-    font-size: 24pt;
+.upload-form input[type="file"]{
+    width: 0px;
+    height: 0px;
+    z-index: -1;
+    position: absolute;
+    overflow: hidden;
+    opacity: 0;
 }
 
-.upload-form input::file-selector-button{
+Label[for="file"] {
+    border: 3px solid #000;
+    border-radius: 10px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
+    font-size: 24pt;
     font-family: var(--primary-font);
-    margin-right: 20px;
-    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
+
+
 
 .upload-form button {
     background-color: var(--secondary-color);
     color: var(--primary-color);
     font-family: var(--primary-font);
     font-size: 24pt;
+    border: 3px solid var(--primary-color);
+    border-radius: 10px;
     width: fit-content;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }

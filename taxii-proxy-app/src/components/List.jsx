@@ -4,7 +4,7 @@ import ListItem from "./ListItem";
 const listOfItems = ["Item1", "Item2", "Item3", "Item4"]
 
 function createList(bundle){
-    return <ListItem name={bundle} itemNum="5" errorNum="10"/>
+    return <ListItem key={bundle} name={bundle} itemNum="5" errorNum="10"/>
 }
 
 function List() {

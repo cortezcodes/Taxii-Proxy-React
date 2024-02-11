@@ -8,7 +8,7 @@ function FileUploadForm() {
     return (<div>
         <form className="upload-form">
             <input type="file" id="file"/>
-            <label for="file">Select STIX 2.X file</label>
+            <label htmlFor="file">Select STIX 2.X file</label>
             <button type="submit">Upload</button>
         </form>
     </div>);
