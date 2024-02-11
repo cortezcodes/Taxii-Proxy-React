@@ -1,13 +1,19 @@
+:root {
+    --primary-color: #4780c0;
+    --secondary-color: #fff;
+    --primary-font: cursive;
+}
+
 header {
-    background-color: #4780c0;
+    background-color: var(--primary-color);
     margin: auto -16px;
     padding: 16px 32px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);    
 }
 
 header h1 {
-    color: #fff;
-    font-family: cursive;
+    color: var(--secondary-color);
+    font-family: var(--primary-font);
     font-weight: 200;
 }
 
@@ -21,4 +27,47 @@ footer {
 
 footer p {
     color: #ccc
+}
+
+.bundle-list-item{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: var(--primary-font);
+    padding: 16px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.bundle-list-item div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.upload-form input{
+    font-size: 24pt;
+}
+
+.upload-form input::file-selector-button{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    font-family: var(--primary-font);
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.upload-form button {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: var(--primary-font);
+    font-size: 24pt;
+    width: fit-content;
 }
