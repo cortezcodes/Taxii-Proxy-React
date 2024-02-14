@@ -1,0 +1,37 @@
+{
+    "type": "bundle",
+    "id": "bundle--177c6477-2dee-43d5-b4c9-8b7f3f5ec517",
+    "objects": [
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--a862ff86-68d9-42e5-8095-cd80c040e112",
+            "created": "2020-06-24T15:04:40.048932Z",
+            "modified": "2020-06-24T15:04:40.048932Z",
+            "name": "File hash for malware variant",
+            "pattern": "[file:hashes.md5 = 'd41d8cd98f00b204e9800998ecf8427e']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2020-06-24T15:04:40.048932Z"
+        },
+        {
+            "type": "malware",
+            "spec_version": "2.1",
+            "id": "malware--389c934c-258c-44fb-ae4b-14c6c12270f6",
+            "created": "2020-06-24T14:53:20.156644Z",
+            "modified": "2020-06-24T14:53:20.156644Z",
+            "name": "Poison Ivy",
+            "is_family": false
+        },
+        {
+            "type": "relationship",
+            "spec_version": "2.1",
+            "id": "relationship--2f6a8785-e27b-487e-b870-b85a2121502d",
+            "created": "2020-06-24T15:05:18.250605Z",
+            "modified": "2020-06-24T15:05:18.250605Z",
+            "relationship_type": "indicates",
+            "source_ref": "indicator--a862ff86-68d9-42e5-8095-cd80c040e112",
+            "target_ref": "malware--389c934c-258c-44fb-ae4b-14c6c12270f6"
+        }
+    ]
+}
