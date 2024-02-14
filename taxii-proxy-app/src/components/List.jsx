@@ -1,18 +1,19 @@
 import React from "react";
 import ListItem from "./ListItem";
 
-const listOfItems = ["Item1", "Item2", "Item3", "Item4"]
-
 function createList(bundle){
-    return <ListItem key={bundle} name={bundle} itemNum="5" errorNum="10"/>
+    if (Object.keys(bundle).length === 0){
+        return;
+    }
+    return <ListItem key={bundle.id} name={bundle.id} itemNum={bundle.objects.length} errorNum="0"/>;
 }
 
-function List() {
+function List(props) {
     return (<div>
         <ul>
-            {listOfItems.map(createList)}
+            {props.data.map(createList)}
         </ul>
-    </div>)
+    </div>);
 }
 
 
