@@ -1,8 +1,14 @@
 import React from "react";
+import {useNavigate} from 'react-router-dom'
 
 function TableRow(props) {
+
+    const navigate = useNavigate();
+
     const rowClickHandler = (rowData) => {
         console.log("Row clicker: ", rowData);
+        navigate("/visualizer");
+
     }
 
 
