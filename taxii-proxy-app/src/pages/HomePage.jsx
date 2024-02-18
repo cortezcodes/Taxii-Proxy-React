@@ -1,7 +1,13 @@
 import react, {useState, useEffect} from "react";
-import Table from "./Table";
-import FileUploadForm from "./FileUploadForm";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Table from "../components/Table";
+import FileUploadForm from "../components/FileUploadForm";
 
+/**
+ * Main page going to the index
+ * @returns {JSX.Element} of all components to the homepage
+ */
 function HomePage(){
     const [stixData, setStixData] = useState();
 
