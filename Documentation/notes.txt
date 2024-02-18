@@ -1,0 +1,3 @@
+to run flask server you need to set 
+1. export FLASK_APP=<python_file>
+2. run flask run --debug (Debug allows the program to run without have to restart)
