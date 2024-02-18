@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import List from "./List";
+import Table from "./Table";
 import FileUploadForm from "./FileUploadForm";
 
 function App(){
@@ -25,7 +25,7 @@ function App(){
     return (<div>
         <Header />
         <FileUploadForm />
-        <List data={[stixData]}/>
+        <Table data={[stixData]}/>
         <Footer />
     </div>);
 }
