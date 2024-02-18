@@ -1,7 +1,8 @@
 :root {
     --primary-color: #4780c0;
     --secondary-color: #fff;
-    --tertiary-color: #83a2c5;
+    --tertiary-color: #a0b2c762;
+    --hover-color: #84b0e2;
     --primary-font: cursive;
 }
 
@@ -47,16 +48,21 @@ div table{
 th, td{
     padding: 15px;
     text-align: left;
+    font-family: var(--primary-font);
     border-bottom: 1px solid #ddd;
 }
 
-
-tr:hover td{
+th {
     background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
-tr:nth-child(even){
-    background-color: #83a2c5;
+tr:hover td{
+    background-color: var(--hover-color);
+}
+
+tr:nth-child(odd){
+    background-color: var(--tertiary-color);
 }
 
 .bundle-list-item{
