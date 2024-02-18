@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Table from "../components/Table";
 import FileUploadForm from "../components/FileUploadForm";
 
-/**
+/** 
  * Main page going to the index
  * @returns {JSX.Element} of all components to the homepage
  */
