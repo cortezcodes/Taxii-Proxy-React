@@ -6,8 +6,7 @@ function TableRow(props) {
     const navigate = useNavigate();
 
     const rowClickHandler = (rowData) => {
-        console.log("Row clicker: ", rowData);
-        navigate("/visualizer");
+        navigate("/visualizer",{state: {data: rowData.data}});
 
     }
 

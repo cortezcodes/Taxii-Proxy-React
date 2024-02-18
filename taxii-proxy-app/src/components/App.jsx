@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import HomePage from "../pages/HomePage";
 import VisualizerPage from "../pages/VisualizerPage";
+import Error404 from "../pages/Error404";
 
 /*
  * This is the main app function for the entire TAXII-Proxy program.
@@ -18,6 +19,7 @@ function App(){
                 <Route path="/">
                     <Route index element={<HomePage />}/>
                     <Route path="visualizer" element={<VisualizerPage/> }/>
+                    <Route path="*" element={<Error404/>} />
                 </Route>
             </Routes>
             <Footer/>

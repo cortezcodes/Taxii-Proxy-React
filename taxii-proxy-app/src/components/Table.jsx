@@ -3,7 +3,7 @@ import TableRow from "./TableRow";
 import TableHeader from "./TableHeader"
 
 function addTableRow(bundle){
-    return <TableRow key={bundle.id}  name={bundle.id} version={bundle.objects[0].spec_version} itemNum={bundle.objects.length} errorNum="0"/>;
+    return <TableRow key={bundle.id}  name={bundle.id} version={bundle.objects[0].spec_version} itemNum={bundle.objects.length} errorNum="0" data={bundle}/>;
 }
 
 function Table(props) {
@@ -11,7 +11,6 @@ function Table(props) {
         <table className="no-border-breaks">
             <TableHeader headers={["Bundle ID", "Version", "# Objects", "Errors Found"]}/>
             <tbody>
-                {console.log(props.data[0])}
                 {props.data[0] === undefined ? null : props.data[0].map(addTableRow)}
             </tbody>
         </table>

@@ -1,8 +1,10 @@
 import React from "react";
+import CollapsibleList from "./CollapsibleList";
 
-function JsonView(){
-    return <div className="jsonView">
-        <p >Json View</p>
+function JsonView(props){
+    return <div className="jsonView"> 
+        <h3 className="json-view-header"> {props.data.id} </h3>
+        <CollapsibleList />
     </div>
 }
 
