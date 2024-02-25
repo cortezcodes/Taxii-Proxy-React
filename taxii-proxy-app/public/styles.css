@@ -132,3 +132,7 @@ Label[for="file"] {
     padding: 8px;
     margin: 8px;
 }
+
+.list-item-no-bullet {
+    list-style-type: none;
+}
