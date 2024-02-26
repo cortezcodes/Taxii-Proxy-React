@@ -12,18 +12,18 @@ import Error404 from "../pages/Error404";
  * @returns {JSX.Element} A set of react elements based on the value of page. 
 */
 function App(){
-    return (<div>
+    return (<div className="app">
+    <Header/>
         <Router>
-            <Header/>
             <Routes>
                 <Route path="/">
                     <Route index element={<HomePage />}/>
                     <Route path="visualizer" element={<VisualizerPage/> }/>
                     <Route path="*" element={<Error404/>} />
                 </Route>
-            </Routes>
-            <Footer/>
-    </Router>
+            </Routes>      
+        </Router>
+    <Footer/>
     </div>
     );
 }

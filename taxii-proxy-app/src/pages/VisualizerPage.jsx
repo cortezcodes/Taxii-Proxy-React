@@ -1,6 +1,8 @@
 import React from "react";
 import JsonView from "../components/JsonView";
+import Node from "../components/Node";
 import { useLocation } from "react-router-dom";
+import NetworkDiagram from "../components/NetworkDiagram";
 
 /**
  * Shows the Visualizer page which consist of two components. 
@@ -15,7 +17,7 @@ function VisualizerPage(){
 
     return <div className="visualizer">
         <JsonView data={location.state.data}/>
-        <p className="jsonGraph">under construction</p>
+        <NetworkDiagram width={800} height={400} />
     </div>
 }
 
