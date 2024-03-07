@@ -22,9 +22,10 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         ]
     });
     
-    // If bundle will increase 
+    // If bundle is not empty parse into links and nodes
     if(stixBundle){
         const networkElements = StixParser(stixBundle);
+    
     }
 
     //d3.js will mutate the links and nodes so it is good practice to make copies
