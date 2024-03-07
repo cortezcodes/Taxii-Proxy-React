@@ -10,32 +10,20 @@ import * as d3 from "d3";
  * @returns 
  */
 function NetworkDiagram({height=600 , width=800, stixBundle}){
-    const [data, setData] = useState({
-        nodes : [
-            {id:"James", group:"team 1"},
-            {id:"Alex", group:"team 1"},
-            {id:"Mark", group:"team 1"},
-        ],
-        links : [
-            {source: "James", target:"Alex", value: "Friends"},
-            {source: "Alex", target:"Mark", value:"Hates"}
-        ]
-    });
+    const [data, setData] = useState(StixParser(stixBundle));
     
-    // If bundle is not empty parse into links and nodes
-    if(stixBundle){
-        const networkElements = StixParser(stixBundle);
-    
-    }
 
-    //d3.js will mutate the links and nodes so it is good practice to make copies
-    const links = data.links.map((l) => ({...l}));
-    const nodes = data.nodes.map((n) => ({...n}));
-    console.log(nodes);
     // Grab the svg reference from the html
     const svgRef = useRef();
 
     useEffect(() => {
+        //d3.js will mutate the links and nodes so it is good practice to make copies
+        const links = data.links.map((l) => ({...l}));
+        const nodes = data.nodes.map((n) => ({...n}));
+
+        console.log(links);
+        console.log(nodes);
+        
         const svg = d3.select(svgRef.current);
         const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -82,7 +70,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             simulation.stop();
         }
         
-    }, [nodes, links, width, height]);
+    }, [data, width, height]);
 
 
     return(

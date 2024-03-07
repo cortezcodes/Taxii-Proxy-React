@@ -3,8 +3,6 @@
  * @param {json} stixBundle Stix bundle object
  */
 function StixParser(stixBundle){
-    console.log(stixBundle);
-
     const nodes = parseNodes(stixBundle);
     const links = parseLinks(stixBundle);
 
