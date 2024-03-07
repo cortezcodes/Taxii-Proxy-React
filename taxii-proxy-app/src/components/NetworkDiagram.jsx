@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-function NetworkDiagram({height=600 , width=800}){
+/**
+ * Force Simulator Component for display STIX objects in a network graph. 
+ * @param {number} height - height dimension of network graph, defaults to 600
+ * @param {number} width - width dimension of network graph, defaults to 800
+ * @param {json} stixbundle - stix bundle to be processed into a network graph
+ * @returns 
+ */
+function NetworkDiagram({height=600 , width=800, stixBundle}){
 
-    
-    const data = {
+    const [data, setData] = useState({
         nodes : [
             {id:"James", group:"team 1"},
             {id:"Alex", group:"team 1"},
@@ -14,7 +20,12 @@ function NetworkDiagram({height=600 , width=800}){
             {source: "James", target:"Alex", value: "Friends"},
             {source: "Alex", target:"Mark", value:"Hates"}
         ]
-    };
+    });
+    
+    // If bundle will increase 
+    if(stixBundle){
+        console.log(stixBundle)
+    }
 
     //d3.js will mutate the links and nodes so it is good practice to make copies
     const links = data.links.map((l) => ({...l}));

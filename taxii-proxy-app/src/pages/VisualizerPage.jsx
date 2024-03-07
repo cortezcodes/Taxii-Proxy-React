@@ -17,7 +17,7 @@ function VisualizerPage(){
 
     return <div className="visualizer">
         <JsonView data={location.state.data}/>
-        <NetworkDiagram />
+        <NetworkDiagram height={600} width={800} stixBundle={location.state.data} />
     </div>
 }
 
