@@ -1,0 +1,2 @@
+- Need a method for importing schemas which will include
+    - Defining if an extension is a SDO or a SRO

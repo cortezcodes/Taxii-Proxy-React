@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import StixParser from "../utils/StixParser";
 import * as d3 from "d3";
 
 /**
@@ -9,7 +10,6 @@ import * as d3 from "d3";
  * @returns 
  */
 function NetworkDiagram({height=600 , width=800, stixBundle}){
-
     const [data, setData] = useState({
         nodes : [
             {id:"James", group:"team 1"},
@@ -24,7 +24,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
     
     // If bundle will increase 
     if(stixBundle){
-        console.log(stixBundle)
+        const networkElements = StixParser(stixBundle);
     }
 
     //d3.js will mutate the links and nodes so it is good practice to make copies
