@@ -1,29 +1,29 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import StixParser from "../utils/StixParser";
 import * as d3 from "d3";
 
-function NetworkDiagram({height=600 , width=800}){
-
+/**
+ * Force Simulator Component for display STIX objects in a network graph. 
+ * @param {number} height - height dimension of network graph, defaults to 600
+ * @param {number} width - width dimension of network graph, defaults to 800
+ * @param {json} stixbundle - stix bundle to be processed into a network graph
+ * @returns 
+ */
+function NetworkDiagram({height=600 , width=800, stixBundle}){
+    const [data, setData] = useState(StixParser(stixBundle));
     
-    const data = {
-        nodes : [
-            {id:"James", group:"team 1"},
-            {id:"Alex", group:"team 1"},
-            {id:"Mark", group:"team 1"},
-        ],
-        links : [
-            {source: "James", target:"Alex", value: "Friends"},
-            {source: "Alex", target:"Mark", value:"Hates"}
-        ]
-    };
 
-    //d3.js will mutate the links and nodes so it is good practice to make copies
-    const links = data.links.map((l) => ({...l}));
-    const nodes = data.nodes.map((n) => ({...n}));
-    console.log(nodes);
     // Grab the svg reference from the html
     const svgRef = useRef();
 
     useEffect(() => {
+        //d3.js will mutate the links and nodes so it is good practice to make copies
+        const links = data.links.map((l) => ({...l}));
+        const nodes = data.nodes.map((n) => ({...n}));
+
+        console.log(links);
+        console.log(nodes);
+        
         const svg = d3.select(svgRef.current);
         const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -70,7 +70,7 @@ function NetworkDiagram({height=600 , width=800}){
             simulation.stop();
         }
         
-    }, [nodes, links, width, height]);
+    }, [data, width, height]);
 
 
     return(

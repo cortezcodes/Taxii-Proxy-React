@@ -9,7 +9,6 @@ function CollapsibleListItem(props){
         numberStyle: { color: 'darkorange' }
     }
 
-    console.log(props.stixObject);
     return (<li className="list-item-no-bullet">
         <JsonFormatter json={props.stixObject} tabWith={4} jsonStyle={jsonStyle}/>
     </li>);
