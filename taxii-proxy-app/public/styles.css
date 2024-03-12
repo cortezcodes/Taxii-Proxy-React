@@ -127,7 +127,7 @@ Label[for="file"] {
     margin-right: 8px;
 }
 
-.network-diagram{
+#network-diagram{
     flex: 1 1 auto;
     margin-top: 8px;
     border: 2px solid var(--primary-color);
