@@ -45,6 +45,20 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
                     .attr('cy', d => d.y);
             });
 
+        //Arrows for links
+        svg.append("defs").selectAll("marker")
+            .data(["arrow"])
+            .enter().append("marker")
+            .attr("id", function(d) { return d; })
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX", 20)
+            .attr("refY", 0)
+            .attr("markerWidth", 6)
+            .attr("markerHeight", 6)
+            .attr('orient', 'auto')
+            .append("path")
+            .attr("d", "M 0 ,-5 L 10 ,0 L 0, 5")
+
         // Add a line for each link, and a circle for each node
         const link = svg.append('g')
             .attr("stroke", "#999")
@@ -52,7 +66,8 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .selectAll()
             .data(links)
             .join("line")
-            .attr("stroke-width", d => Math.sqrt(d.value));
+            .attr("stroke-width", d => Math.sqrt(d.value))
+            .attr('marker-end', 'url(#arrow)');
 
         const node = svg.append('g')
             .attr("stroke", "#fff")
@@ -60,7 +75,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .selectAll()
             .data(nodes)
             .join("circle")
-            .attr("r", 5)
+            .attr("r", 10)
             .attr("fill", d => color(d.group));
 
         node.append("title")
