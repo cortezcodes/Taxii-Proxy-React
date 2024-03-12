@@ -55,7 +55,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         const simulation = d3.forceSimulation(nodes)
             .force('link', d3.forceLink(links).id((d) => d.id))
             .force('charge', d3.forceManyBody())
-            .force('center', d3.forceCenter(width/2,height/2))
+            .force('center', d3.forceCenter(containerWidth/2,250))
             .on("tick", () => {
                 link.attr('x1', d => d.source.x)
                     .attr('y1', d => d.source.y)
@@ -89,16 +89,17 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .attr("stroke-width", d => Math.sqrt(d.value))
             .attr('marker-end', 'url(#arrow)');
 
-        const node = node_g
-            .selectAll()
+        const node = node_g.selectAll()
             .data(nodes)
             .join("circle")
             .attr("r", 6)
             .attr("fill", d => "#4780c0");
+            
+
+        node.append("title")
+            .text(d => d.id);
 
 
-    //     // node.append("title")
-    //     //     .text(d => d.id);
         return () => {
             svgContainer.selectAll('*').remove();
             simulation.stop();
