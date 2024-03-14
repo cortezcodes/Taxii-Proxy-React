@@ -40,13 +40,6 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         const zoomed = d3.zoom()
             .scaleExtent([1, 8])
             .on("zoom", (e) => {
-                // //Transform link
-                // link.selectAll("g").attr("transform", e.transform);
-                // link.selectAll("line").attr("transform", e.transform);
-                // //Transform Circles
-                // node.selectAll('g').attr("transform", e.transform);
-                // node.selectAll("circle").attr("transform", e.transform);
-                // node.selectAll("text").attr('transform', e.transform);
                 container.attr('transform', e.transform);
             });
 
@@ -55,7 +48,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         //Create Drag functions
         const dragStart = (e, d) => {
             if(!e.active){
-                simulation.alphaTarget(0.3).restart();
+                simulation.alphaTarget(0.7).restart();
             }
             d.fx = d.x;
             d.fy = d.yl
@@ -85,16 +78,15 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         // Setup Simulaton
         const simulation = d3.forceSimulation(nodes)
             .force('link', d3.forceLink(links).id((d) => d.id))
-            .force('charge', d3.forceManyBody())
-            .force('center', d3.forceCenter(containerWidth/2,250))
+            .force('charge', d3.forceManyBody().strength(-1000))
+            .force('center', d3.forceCenter(containerWidth/2, 250))
+            .force('collide', d3.forceCollide().radius(30))
             .on("tick", () => {
                 link.attr('x1', d => d.source.x)
                     .attr('y1', d => d.source.y)
                     .attr('x2', d => d.target.x)
                     .attr('y2', d => d.target.y);
             
-                // node.attr('cx', d => d.x)
-                //     .attr('cy', d => d.y);
                 node.attr('transform', d => `translate(${d.x}, ${d.y})`);
             });
             
@@ -111,16 +103,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .attr('orient', 'auto')
             .append("path")
             .attr("d", "M 0 ,-5 L 10 ,0 L 0, 5")
-    
-        //Add labels to each node 
-        // const nodeLabels = svg.selectAll('.node-label')
-        //     .data(nodes)
-        //     .enter().append('text')
-        //     .attr('class', 'label')
-        //     .text(d => d.id)
-        //     .attr('x', d => d.x)
-        //     .attr('y', d => d.y)
-        //     .attr('text-anchor', 'middle');
+
 
         // Add a line for each link, and a circle for each node
         const link = container.append('g')
