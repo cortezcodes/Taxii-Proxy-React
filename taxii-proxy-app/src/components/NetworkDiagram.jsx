@@ -34,7 +34,6 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         .attr("viewbox",`0 0 ${containerWidth} ${containerHeight}`);
 
         //append a g to svg
-
         const link_g = svg.append("g");
         const node_g = svg.append("g");
 
@@ -47,7 +46,36 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
                 //Transform Circles
                 node_g.selectAll("circle").attr("transform", e.transform);
             });
-        
+
+
+ 
+        //Create Drag functions
+        const dragStart = (e, d) => {
+            if(!e.active){
+                simulation.alphaTarget(0.3).restart();
+            }
+            d.fx = d.x;
+            d.fy = d.yl
+        };
+
+        const dragged = (e, d) => {
+            d.fx = e.x;
+            d.fy = e.y
+        };
+
+        const dragEnd = (e,d) =>{
+            if(!e.active){
+                simulation.alphaTarget(0);
+            }
+            d.fx = null;
+            d.fy = null;
+        };
+        const drag = d3.drag()
+            .on("start", dragStart)
+            .on("drag", dragged)
+            .on("end", dragEnd);
+    
+
         //Add zoom feature to SVG
         svg.call(zoomed);
 
@@ -93,7 +121,8 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .data(nodes)
             .join("circle")
             .attr("r", 6)
-            .attr("fill", d => "#4780c0");
+            .attr("fill", d => "#4780c0")
+            .call(drag);
             
 
         node.append("title")
