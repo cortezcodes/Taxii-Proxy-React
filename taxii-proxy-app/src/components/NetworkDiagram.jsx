@@ -33,18 +33,21 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         .attr("width", "100%")
         .attr("viewbox",`0 0 ${containerWidth} ${containerHeight}`);
 
-        //append a g to svg
-        const link_g = svg.append("g");
-        const node_g = svg.append("g");
+        //append a g to svg. This will help with zoom and pan
+        const container = svg.append('g');
 
         //create zoom handler
         const zoomed = d3.zoom()
             .scaleExtent([1, 8])
             .on("zoom", (e) => {
-                //Transform link
-                link_g.selectAll("line").attr("transform", e.transform);
-                //Transform Circles
-                node_g.selectAll("circle").attr("transform", e.transform);
+                // //Transform link
+                // link.selectAll("g").attr("transform", e.transform);
+                // link.selectAll("line").attr("transform", e.transform);
+                // //Transform Circles
+                // node.selectAll('g').attr("transform", e.transform);
+                // node.selectAll("circle").attr("transform", e.transform);
+                // node.selectAll("text").attr('transform', e.transform);
+                container.attr('transform', e.transform);
             });
 
 
@@ -90,12 +93,13 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
                     .attr('x2', d => d.target.x)
                     .attr('y2', d => d.target.y);
             
-                node.attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
+                // node.attr('cx', d => d.x)
+                //     .attr('cy', d => d.y);
+                node.attr('transform', d => `translate(${d.x}, ${d.y})`);
             });
             
     //Arrows for links
-        svg.append("defs").selectAll("marker")
+        container.append("defs").selectAll("marker")
             .data(["arrow"])
             .enter().append("marker")
             .attr("id", function(d) { return d; })
@@ -107,9 +111,20 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .attr('orient', 'auto')
             .append("path")
             .attr("d", "M 0 ,-5 L 10 ,0 L 0, 5")
+    
+        //Add labels to each node 
+        // const nodeLabels = svg.selectAll('.node-label')
+        //     .data(nodes)
+        //     .enter().append('text')
+        //     .attr('class', 'label')
+        //     .text(d => d.id)
+        //     .attr('x', d => d.x)
+        //     .attr('y', d => d.y)
+        //     .attr('text-anchor', 'middle');
 
         // Add a line for each link, and a circle for each node
-        const link = link_g.attr("stroke", "#999")
+        const link = container.append('g')
+            .attr("stroke", "#999")
             .attr("stroke-opacity", 0.6)
             .selectAll()
             .data(links)
@@ -117,16 +132,21 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .attr("stroke-width", d => Math.sqrt(d.value))
             .attr('marker-end', 'url(#arrow)');
 
-        const node = node_g.selectAll()
+        const node = container.append('g')
+            .selectAll(".node")
             .data(nodes)
-            .join("circle")
-            .attr("r", 6)
-            .attr("fill", d => "#4780c0")
-            .call(drag);
-            
+            .join("g")
+                .attr('class', 'node')
+                .call(drag);
 
-        node.append("title")
-            .text(d => d.id);
+        node.append("circle")
+            .attr("r", 6)
+            .attr("fill", d => "#4780c0");
+
+        node.append('text')
+            .text(d => d.name)
+            .style('fill', '#000')
+            .attr("font-size", '8px');
 
 
         return () => {
