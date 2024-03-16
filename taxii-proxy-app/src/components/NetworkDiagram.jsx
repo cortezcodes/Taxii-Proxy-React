@@ -9,9 +9,12 @@ import * as d3 from "d3";
  * @param {json} stixbundle - stix bundle to be processed into a network graph
  * @returns 
  */
-function NetworkDiagram({height=600 , width=800, stixBundle}){
-    const [data, setData] = useState(StixParser(stixBundle));
+function NetworkDiagram({stixBundle}){
+    // Grab svg Container
 
+    const [data, setData] = useState(StixParser(stixBundle));
+    const [containerWidth, setContainerWidth] = useState();
+    const [containerHeight, setContainerHeight] = useState();
     
 
     // Grab the svg reference from the html
@@ -21,17 +24,16 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
         //d3.js will mutate the links and nodes so it is good practice to make copies
         const links = data.links.map((l) => ({...l}));
         const nodes = data.nodes.map((n) => ({...n}));
-
-        // Grab svg Container
         const svgContainer = d3.select('#network-diagram');
-        const containerWidth = svgContainer.node().getBoundingClientRect().width;
-        const containerHeight = svgContainer.node().getBoundingClientRect().height;
+
+        setContainerWidth(svgContainer.node().getBoundingClientRect().width);
+        setContainerHeight(svgContainer.node().getBoundingClientRect().height);
+
 
         //Create SVG
         const svg = svgContainer.append("svg")
-        .attr("height", "100%")
-        .attr("width", "100%")
-        .attr("viewbox",`0 0 ${containerWidth} ${containerHeight}`);
+        .attr("height", `${containerHeight}`)
+        .attr("width", `${containerWidth}`);
 
         //append a g to svg. This will help with zoom and pan
         const container = svg.append('g');
@@ -42,8 +44,6 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             .on("zoom", (e) => {
                 container.attr('transform', e.transform);
             });
-
-
  
         //Create Drag functions
         const dragStart = (e, d) => {
@@ -137,7 +137,7 @@ function NetworkDiagram({height=600 , width=800, stixBundle}){
             simulation.stop();
         }
         
-    }, [data, width, height]);
+    }, [data, containerWidth, containerHeight]);
 
 
     return(
