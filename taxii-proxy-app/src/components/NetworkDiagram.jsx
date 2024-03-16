@@ -115,6 +115,9 @@ function NetworkDiagram({stixBundle}){
             .attr("stroke-width", d => Math.sqrt(d.value))
             .attr('marker-end', 'url(#arrow)');
 
+        link.append('title')
+            .attr('text', d => d.value);
+
         const node = container.append('g')
             .selectAll(".node")
             .data(nodes)
