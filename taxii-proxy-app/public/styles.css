@@ -122,6 +122,9 @@ Label[for="file"] {
 
 .json-view {
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     height: 100%;
     width: 100%;
     border: 2px solid var(--primary-color);
@@ -159,11 +162,11 @@ Label[for="file"] {
 }
 
 .collapsible-list {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .collapse-button{
     width: 100%;
+    text-align: left;
 }
