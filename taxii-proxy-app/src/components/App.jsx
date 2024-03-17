@@ -13,8 +13,8 @@ import Error404 from "../pages/Error404";
 */
 function App(){
     return (<div className="app">
-    <Header/>
         <Router>
+        <Header/>
             <Routes>
                 <Route path="/">
                     <Route index element={<HomePage />}/>

@@ -19,7 +19,8 @@ function parseNodes(bundle){
         if(obj.type !== "relationship" && obj.type !== "sighting"){
             nodes.push({
                 "id" : obj.id, 
-                "type" : obj.type 
+                "type" : obj.type,
+                "name" : obj.name
             });
         }
     });

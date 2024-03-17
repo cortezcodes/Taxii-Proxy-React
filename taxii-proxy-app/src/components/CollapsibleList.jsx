@@ -14,9 +14,9 @@ function listObjects(stix, index){
  * @returns {JSX.Element} Collapsible List
  */
 function CollapsibleList(props){
-    return (<ul className="collapsible-list">
+    return (<div className="collapsible-list">
        {props.stixObjects.objects.map(listObjects)} 
-    </ul>);
+    </div>);
 }
 
 export default CollapsibleList;

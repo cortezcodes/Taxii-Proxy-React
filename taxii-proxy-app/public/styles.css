@@ -116,19 +116,27 @@ Label[for="file"] {
 
 .visualizer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column-reverse;
     height: 100%;
 }
 
-.jsonView {
+.json-view {
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
     border: 2px solid var(--primary-color);
     margin-top: 8px;
     margin-right: 8px;
+    scrollbar-width: False;
+    overflow-y: auto;
 }
 
-.network-diagram{
-    flex: 1 1 auto;
+#network-diagram{
+    flex: 10 1 auto;
+    min-height: 500px;
     margin-top: 8px;
     border: 2px solid var(--primary-color);
     align-items: center;
@@ -148,4 +156,17 @@ Label[for="file"] {
 
 .list-item-no-bullet {
     list-style-type: none;
+    width: 100%;
+    margin: 4px;
+    padding: 4px;
+}
+
+.collapsible-list {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.collapse-button{
+    width: 100%;
+    text-align: left;
 }
