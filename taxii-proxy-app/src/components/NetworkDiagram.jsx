@@ -4,6 +4,7 @@ import * as d3 from "d3";
 
 /**
  * Force Simulator Component for display STIX objects in a network graph. 
+ * Reference: https://observablehq.com/@xianwu/clickable-force-directed-graph-network-graph
  * @param {number} height - height dimension of network graph, defaults to 600
  * @param {number} width - width dimension of network graph, defaults to 800
  * @param {json} stixbundle - stix bundle to be processed into a network graph
@@ -75,20 +76,6 @@ function NetworkDiagram({stixBundle}){
         //Add zoom feature to SVG
         svg.call(zoomed);
 
-        // Setup Simulaton
-        const simulation = d3.forceSimulation(nodes)
-            .force('link', d3.forceLink(links).id((d) => d.id))
-            .force('charge', d3.forceManyBody().strength(-1000))
-            .force('center', d3.forceCenter(containerWidth/2, 250))
-            .force('collide', d3.forceCollide().radius(30))
-            .on("tick", () => {
-                link.attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
-            
-                node.attr('transform', d => `translate(${d.x}, ${d.y})`);
-            });
             
     //Arrows for links
         container.append("defs").selectAll("marker")
@@ -101,6 +88,7 @@ function NetworkDiagram({stixBundle}){
             .attr("markerWidth", 6)
             .attr("markerHeight", 6)
             .attr('orient', 'auto')
+            .attr('fill', '#aaa')
             .append("path")
             .attr("d", "M 0 ,-5 L 10 ,0 L 0, 5")
 
@@ -115,8 +103,6 @@ function NetworkDiagram({stixBundle}){
             .attr("stroke-width", d => Math.sqrt(d.value))
             .attr('marker-end', 'url(#arrow)');
 
-        link.append('title')
-            .attr('text', d => d.value);
 
         const node = container.append('g')
             .selectAll(".node")
@@ -134,7 +120,54 @@ function NetworkDiagram({stixBundle}){
             .style('fill', '#000')
             .attr("font-size", '8px');
 
+        //Make path for link text to follow
+        const linkTextPath = container.selectAll(".linkTextPath")
+            .data(links)
+            .enter()
+            .append("path")
+            .attr('class','linkTextPath')
+            .attr('fill-opacity', 0)
+            .attr('stroke-opacity', 0)
+            .attr('id', (d, i) => 'linkTextPath' + i)
+            .style("pointer-events", 'none');
 
+        // Make link text
+        const linkText = container.selectAll(".linkText")
+            .data(links)
+            .enter()
+            .append('text')
+            .style('pointer-events', 'none')
+            .attr('class', 'linkText')
+            .attr('id', (d, i) => 'linkText' + i)
+            .attr('font-size', 10)
+            .attr('fill', '#aaa');
+
+        // Make the link text visible
+        linkText.append('textPath')
+            .attr('xlink:href', (d, i) => '#linkTextPath' + i)
+            .style('text-anchor', 'middle')
+            .style('pointer-events', 'none')
+            .attr('startOffset', '50%')
+            .text(d => d.value);
+
+         // Setup Simulaton
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id((d) => d.id))
+            .force('charge', d3.forceManyBody().strength(-1000))
+            .force('center', d3.forceCenter(containerWidth/2, 250))
+            .force('collide', d3.forceCollide().radius(30))
+            .on("tick", () => {
+                link.attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                linkTextPath.attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
+            
+                node.attr('transform', d => `translate(${d.x}, ${d.y})`);
+            });
+
+      
         return () => {
             svgContainer.selectAll('*').remove();
             simulation.stop();
