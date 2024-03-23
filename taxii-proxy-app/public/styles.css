@@ -170,3 +170,24 @@ Label[for="file"] {
     width: 100%;
     text-align: left;
 }
+
+#validate-section {
+    display:flex;
+    margin: 8px;
+    padding: 8px;
+    flex-direction: row;
+}
+
+#schema-selector {
+    flex-grow: 1;
+    margin-left: 4px;
+}
+
+#validate-button {
+    flex-grow: 1;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-right: 4px;
+    background-color: green;
+    color: #fff;
+}

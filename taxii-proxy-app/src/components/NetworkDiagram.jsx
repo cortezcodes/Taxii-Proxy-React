@@ -153,7 +153,7 @@ function NetworkDiagram({stixBundle}){
          // Setup Simulaton
         const simulation = d3.forceSimulation(nodes)
             .force('link', d3.forceLink(links).id((d) => d.id))
-            .force('charge', d3.forceManyBody().strength(-1000))
+            .force('charge', d3.forceManyBody().strength(-2000))
             .force('center', d3.forceCenter(containerWidth/2, 250))
             .force('collide', d3.forceCollide().radius(30))
             .on("tick", () => {

@@ -1,8 +1,9 @@
 import React from "react";
 import JsonView from "../components/JsonView";
-import Node from "../components/Node";
+import Button from "../components/Button";
 import { useLocation } from "react-router-dom";
 import NetworkDiagram from "../components/NetworkDiagram";
+import DropDown from "../components/DropDown";
 
 /**
  * Shows the Visualizer page which consist of two components. 
@@ -18,6 +19,10 @@ function VisualizerPage(){
     return <div className="visualizer">
         <JsonView data={location.state.data}/>
         <NetworkDiagram stixBundle={location.state.data} />
+        <div id="validate-section">
+            <Button buttonText="Validate"/>
+            <DropDown/>
+        </div> 
     </div>
 }
 
