@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import JsonView from "../components/JsonView";
 import Button from "../components/Button";
 import { useLocation } from "react-router-dom";
@@ -13,6 +13,23 @@ import DropDown from "../components/DropDown";
  * @returns {JSX.Element} for the visualizer page
  */
 function VisualizerPage(){
+    const [schemaData, setSchemaData] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    },[]);
+
+    const fetchData = async () => {
+        try { 
+            const response = await fetch("http://localhost:5000/get/schema/list");
+            const schemas = await response.json();
+            setSchemaData(schemas);
+        }
+        catch(error){
+            console.error("Could not fetch data: ", error);
+        }
+
+    };
     
     const location = useLocation();
 
@@ -21,7 +38,7 @@ function VisualizerPage(){
         <NetworkDiagram stixBundle={location.state.data} />
         <div id="validate-section">
             <Button buttonText="Validate"/>
-            <DropDown/>
+            <DropDown options={schemaData}/>
         </div> 
     </div>
 }

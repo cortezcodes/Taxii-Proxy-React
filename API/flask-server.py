@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 import json
 
@@ -7,7 +7,7 @@ CORS(app)
 
 json_files= ["samples/simple_bundle.json", "samples/campaign_bundle.json"]
 
-# Route for API call from homepage
+# Route for API call to retrieve current saved STIX objects
 @app.route("/")
 def index():
     bundle_objects = []
@@ -17,6 +17,14 @@ def index():
 
     return bundle_objects
 
+@app.route("/get/schema/list")
+def getSchemaList():
+    schemas = ["STIX 2.1", "STIX 2.0", "STIX 2.1 Extended"]
+    return jsonify(schemas)
+
+@app.route("/validate")
+def validate():
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)
