@@ -17,11 +17,13 @@ def index():
 
     return bundle_objects
 
+# API endpoint for getting the current list of Schemas
 @app.route("/get/schema/list")
 def getSchemaList():
     schemas = ["STIX 2.1", "STIX 2.0", "STIX 2.1 Extended"]
     return jsonify(schemas)
 
+# API endpoint for validating STIX bundles
 @app.route("/validate", methods=['POST'])
 def validate():
     req = request.json

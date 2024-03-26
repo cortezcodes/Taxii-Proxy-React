@@ -17,11 +17,14 @@ function VisualizerPage(){
     const location = useLocation();
     const [stixBundle, setStixBundle] = useState(location.state.data);
     const [validationResponse, setValidationResponse] = useState('no Validation');
+    const [selectedSchema, setSelectedSchema] = useState('STIX 2.1')
 
+    // Have this run only once to populate the schema dropdown
     useEffect(() => {
         fetchSchemas();
     },[]);
 
+    // This is used to populate the schema dropdown list
     const fetchSchemas = async () => {
         try { 
             const response = await fetch("http://localhost:5000/get/schema/list");
@@ -33,6 +36,7 @@ function VisualizerPage(){
         }
     };
 
+    // Makes the API call to validate the current selected bundle.
     const fetchValidation = async() => {
         try{
             fetch("http://localhost:5000/validate", {
@@ -42,7 +46,7 @@ function VisualizerPage(){
                 },
                 body: JSON.stringify({
                     'stixBundle':stixBundle,
-                    'schema': 'test'
+                    'schema': selectedSchema
                 })
             })
             .then(response => response.json())
@@ -50,19 +54,24 @@ function VisualizerPage(){
                 setValidationResponse(data);
                 console.log(validationResponse.message);
             });
-
         }
         catch(error){
             console.error("Could not fetch data: ", error);
         }
     }
 
+    // gets the value of the dropdown menu
+    const getDropDownValue = (value) => {
+        setSelectedSchema(value);
+    }
+
+
     return <div className="visualizer">
         <JsonView data={stixBundle}/>
         <NetworkDiagram stixBundle={stixBundle} />
         <div id="validate-section">
             <Button onClick={fetchValidation} buttonText="Validate"/>
-            <DropDown options={schemaData}/>
+            <DropDown onValueChange={getDropDownValue} options={schemaData}/>
         </div> 
     </div>
 }
