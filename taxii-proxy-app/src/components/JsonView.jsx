@@ -7,6 +7,7 @@ import CollapsibleList from "./CollapsibleList";
  * @returns {JSX.Element} of the JSON section of the visualizer
  */
 function JsonView(props){
+
     return (<div className="json-view"> 
         <h3 className="json-view-header"> {props.data.id} </h3>
         <CollapsibleList stixObjects={props.data} />

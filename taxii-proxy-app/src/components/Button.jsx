@@ -5,9 +5,9 @@ import React from "react";
  * @param {string} buttonText string to be shown in the button 
  * @returns 
  */
-function Button({buttonText}){
+function Button({onClick, buttonText}){
 
-    return <button id="validate-button">{buttonText}</button>;
+    return <button onClick={onClick} id="validate-button">{buttonText}</button>;
 }
 
 export default Button;

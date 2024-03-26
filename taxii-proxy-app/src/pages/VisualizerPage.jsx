@@ -14,12 +14,15 @@ import DropDown from "../components/DropDown";
  */
 function VisualizerPage(){
     const [schemaData, setSchemaData] = useState([]);
+    const location = useLocation();
+    const [stixBundle, setStixBundle] = useState(location.state.data);
+    const [validationResponse, setValidationResponse] = useState('no Validation');
 
     useEffect(() => {
-        fetchData();
+        fetchSchemas();
     },[]);
 
-    const fetchData = async () => {
+    const fetchSchemas = async () => {
         try { 
             const response = await fetch("http://localhost:5000/get/schema/list");
             const schemas = await response.json();
@@ -28,16 +31,37 @@ function VisualizerPage(){
         catch(error){
             console.error("Could not fetch data: ", error);
         }
-
     };
-    
-    const location = useLocation();
+
+    const fetchValidation = async() => {
+        try{
+            fetch("http://localhost:5000/validate", {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'stixBundle':stixBundle,
+                    'schema': 'test'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setValidationResponse(data);
+                console.log(validationResponse.message);
+            });
+
+        }
+        catch(error){
+            console.error("Could not fetch data: ", error);
+        }
+    }
 
     return <div className="visualizer">
-        <JsonView data={location.state.data}/>
-        <NetworkDiagram stixBundle={location.state.data} />
+        <JsonView data={stixBundle}/>
+        <NetworkDiagram stixBundle={stixBundle} />
         <div id="validate-section">
-            <Button buttonText="Validate"/>
+            <Button onClick={fetchValidation} buttonText="Validate"/>
             <DropDown options={schemaData}/>
         </div> 
     </div>

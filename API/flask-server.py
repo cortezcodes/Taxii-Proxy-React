@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 
@@ -22,9 +22,12 @@ def getSchemaList():
     schemas = ["STIX 2.1", "STIX 2.0", "STIX 2.1 Extended"]
     return jsonify(schemas)
 
-@app.route("/validate")
+@app.route("/validate", methods=['POST'])
 def validate():
-    pass
+    req = request.json
+    print(req)
+
+    return jsonify({'message': 'Earth To USS-99'})
 
 if __name__ == "__main__":
     app.run(debug=True)
